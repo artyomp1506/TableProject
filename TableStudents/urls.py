@@ -18,12 +18,11 @@ from django.urls import path, include
 from main.views import *
 from rest_framework import routers
 
-router = routers.DefaultRouter()
-router.register(r'student', StudentViewSet, basename='student')
+router = routers.SimpleRouter()
+router.register('api/students', StudentViewSet, basename="students")
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/', include(router.urls)),
-    # path('api/students', StudentViewSet.as_view({'get': 'list'})),
-    # path('api/students/<int:pk>', StudentViewSet.as_view({'put': 'update'})),
 ]
+urlpatterns += router.urls
