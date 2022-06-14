@@ -5,8 +5,8 @@ from rest_framework.decorators import action
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from main.models import Student, Gender
-from main.serializers import StudentSerializer
+from main.models import Student, Gender, User
+from main.serializers import StudentSerializer, UserSerializer
 
 
 class StudentViewSet(viewsets.ModelViewSet):
@@ -19,9 +19,14 @@ class StudentViewSet(viewsets.ModelViewSet):
         return Student.objects.filter(pk=pk)
 
 
+class UserViewSet(viewsets.ModelViewSet):
+        serializer_class = UserSerializer
 
-
-
+        def get_queryset(self):
+            pk = self.kwargs.get('pk')
+            if not pk:
+                return User.objects.all()
+            return User.objects.filter(pk=pk)
 
 
 
